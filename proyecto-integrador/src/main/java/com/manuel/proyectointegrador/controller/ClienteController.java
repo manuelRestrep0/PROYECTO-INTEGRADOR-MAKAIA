@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/clientes")
+@RequestMapping("api/v1")
 public class ClienteController {
     ClienteService clienteService;
     @Autowired
@@ -14,22 +14,22 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @PostMapping()
+    @PostMapping("/clientes")
     public void crearCliente(@RequestBody Cliente cliente){
 
     }
 
-    @PatchMapping()
+    @PatchMapping("/clientes")
     public void actualizarCliente(@RequestBody Cliente cliente){
 
     }
 
-    @DeleteMapping("/{cedula}")
+    @DeleteMapping("/clientes/{cedula}")
     public String eliminarCliente(@PathVariable("cedula") int cedula){
         return "Se elimino correctamente";
     }
 
-    @GetMapping("/{cedula}")
+    @GetMapping("/clientes/{cedula}")
     public Cliente obtenerCliente(@PathVariable("cedula") int cedula){
         return new Cliente();
     }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1/empleados")
+@RequestMapping("api/v1")
 public class EmpleadoController {
     EmpleadoService empleadoService;
 
@@ -14,22 +14,22 @@ public class EmpleadoController {
         this.empleadoService = empleadoService;
     }
 
-    @PostMapping()
+    @PostMapping("/empleados")
     public void crearEmpleado(@RequestBody Empleado empleado){
 
     }
 
-    @PatchMapping()
+    @PatchMapping("/empleados")
     public void actualizarEmpleado(@RequestBody Empleado empleado){
 
     }
 
-    @DeleteMapping("/{cedula}")
+    @DeleteMapping("/empleados/{cedula}")
     public String eliminarEmpleado(@PathVariable("cedula") int cedula){
         return "Empleado eliminado";
     }
 
-    @GetMapping("/{cedula}")
+    @GetMapping("/empleados/{cedula}")
     public void obtenerEmpleado(@PathVariable("cedula") int cedula){
 
     }

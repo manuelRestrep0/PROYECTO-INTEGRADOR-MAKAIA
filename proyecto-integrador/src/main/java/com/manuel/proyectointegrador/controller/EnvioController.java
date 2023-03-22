@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/envios")
+@RequestMapping("api/v1")
 public class EnvioController {
     EnvioService envioService;
     @Autowired
@@ -17,25 +17,25 @@ public class EnvioController {
         this.envioService = envioService;
     }
 
-    @PostMapping
+    @PostMapping("/envios")
     public String crearEnvio(@RequestBody Envio envio){
         return "numero guia: estado envio:";
         //retorna el numero guia y el estadoEnvio
     }
 
-    @GetMapping("/{numeroGuia}")
+    @GetMapping("/envios/{numeroGuia}")
     public Envio obtenerEnvio(@PathVariable("numeroGuia") int numeroGuia){
         return new Envio();
     }
 
-    @PatchMapping
+    @PatchMapping("/envios")
     public void actualizarEstadoEnvio(@RequestBody Envio envio){
         //recibe numero guia, estadoEnvio, cedulaEmpleado
         //tener en cuenta las validaciones para actualizar el paquete.
     }
 
-    @GetMapping
-    public List<Envio> filtrarEnvios(@RequestBody Envio envio){
+    @GetMapping("/envios")
+    public List<Envio> filtrarEnvios(@RequestParam String estadoEnvio, @RequestParam int cedulaEmpleado){
         //tener en cuenta las validaciones.
         return new ArrayList<>();
     }
