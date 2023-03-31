@@ -1,7 +1,8 @@
 package com.manuel.proyectointegrador.controller;
 
+import com.manuel.proyectointegrador.dto.EmpleadoDTO;
 import com.manuel.proyectointegrador.service.EmpleadoService;
-import com.manuel.proyectointegrador.usuario.Empleado;
+import com.manuel.proyectointegrador.model.Empleado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,24 +14,26 @@ public class EmpleadoController {
     @Autowired public void EmpleadoController(EmpleadoService empleadoService){
         this.empleadoService = empleadoService;
     }
+    //crear empleado
+    @PostMapping("/empleado")
+    public void crearEmpleado(@RequestBody EmpleadoDTO empleado){
 
-    @PostMapping("/empleados")
-    public void crearEmpleado(@RequestBody Empleado empleado){
+    }
+    //actualizar empleado
+    @PatchMapping("/empleado")
+    public void actualizarEmpleado(@RequestBody EmpleadoDTO empleado){
 
     }
 
-    @PatchMapping("/empleados")
-    public void actualizarEmpleado(@RequestBody Empleado empleado){
-
-    }
-
+    //eliminar empleado
     @DeleteMapping("/empleados/{cedula}")
     public String eliminarEmpleado(@PathVariable("cedula") int cedula){
         return "Empleado eliminado";
     }
 
+    //obtener empleado por cedula
     @GetMapping("/empleados/{cedula}")
-    public void obtenerEmpleado(@PathVariable("cedula") int cedula){
-
+    public EmpleadoDTO obtenerEmpleado(@PathVariable("cedula") int cedula){
+        return new EmpleadoDTO();
     }
 }

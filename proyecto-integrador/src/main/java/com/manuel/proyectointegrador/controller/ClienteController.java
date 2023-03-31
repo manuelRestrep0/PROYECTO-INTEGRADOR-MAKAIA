@@ -1,9 +1,10 @@
 package com.manuel.proyectointegrador.controller;
 
+import com.manuel.proyectointegrador.dto.ClienteDTO;
 import com.manuel.proyectointegrador.service.ClienteService;
-import com.manuel.proyectointegrador.usuario.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.manuel.proyectointegrador.model.Cliente;
 
 @RestController
 @RequestMapping("api/v1")
@@ -14,24 +15,27 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @PostMapping("/clientes")
-    public void crearCliente(@RequestBody Cliente cliente){
+    //crear cliente
+    @PostMapping("/cliente")
+    public ClienteDTO crearCliente(@RequestBody ClienteDTO cliente){
+        return this.clienteService.crearCliente(cliente);
+    }
+    //actualizar cliente
+    @PatchMapping("/cliente")
+    public void actualizarCliente(@RequestBody ClienteDTO cliente){
 
     }
-
-    @PatchMapping("/clientes")
-    public void actualizarCliente(@RequestBody Cliente cliente){
-
-    }
-
-    @DeleteMapping("/clientes/{cedula}")
+    //eliminar cliente
+    @DeleteMapping("/cliente/{cedula}")
     public String eliminarCliente(@PathVariable("cedula") int cedula){
+        this.clienteService.eliminarCliente(cedula);
         return "Se elimino correctamente";
     }
 
-    @GetMapping("/clientes/{cedula}")
-    public Cliente obtenerCliente(@PathVariable("cedula") int cedula){
-        return new Cliente();
+    //obtener cliente con num cedula
+    @GetMapping("/cliente/{cedula}")
+    public ClienteDTO obtenerCliente(@PathVariable("cedula") int cedula){
+        return this.clienteService.obtenerCliente(cedula);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.manuel.proyectointegrador.controller;
 
-import com.manuel.proyectointegrador.envio.Envio;
+import com.manuel.proyectointegrador.dto.EnvioDTO;
+import com.manuel.proyectointegrador.model.Envio;
 import com.manuel.proyectointegrador.service.EnvioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,25 +18,29 @@ public class EnvioController {
         this.envioService = envioService;
     }
 
-    @PostMapping("/envios")
-    public String crearEnvio(@RequestBody Envio envio){
+    // crear envio
+    @PostMapping("/envio")
+    public String crearEnvio(@RequestBody EnvioDTO envio){
         return "numero guia: estado envio:";
         //retorna el numero guia y el estadoEnvio
     }
 
-    @GetMapping("/envios/{numeroGuia}")
-    public Envio obtenerEnvio(@PathVariable("numeroGuia") int numeroGuia){
-        return new Envio();
+    // obtener envio numero guia
+    @GetMapping("/envio/{numeroGuia}")
+    public EnvioDTO obtenerEnvio(@PathVariable("numeroGuia") int numeroGuia){
+        return new EnvioDTO();
     }
 
-    @PatchMapping("/envios")
-    public void actualizarEstadoEnvio(@RequestBody Envio envio){
+    // actualizar estado envio
+    @PatchMapping("/envio")
+    public void actualizarEstadoEnvio(@RequestParam("guia") Integer numGuia, @RequestParam("estado") String estadoEnvio, @RequestParam("empleado") Integer cedulaEmpleado){
         //recibe numero guia, estadoEnvio, cedulaEmpleado
         //tener en cuenta las validaciones para actualizar el paquete.
     }
 
-    @GetMapping("/envios")
-    public List<Envio> filtrarEnvios(@RequestParam String estadoEnvio, @RequestParam int cedulaEmpleado){
+
+    @GetMapping("/envio")
+    public List<EnvioDTO> filtrarEnvios(@RequestParam String estadoEnvio, @RequestParam int cedulaEmpleado){
         //tener en cuenta las validaciones.
         return new ArrayList<>();
     }
