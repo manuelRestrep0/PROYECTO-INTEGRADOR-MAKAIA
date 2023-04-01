@@ -19,8 +19,7 @@ public class Paquete {
     public Paquete() {
     }
 
-    public Paquete(Integer id, String tipoPaquete, Integer peso, double valorDeclarado) {
-        this.idPaquete = id;
+    public Paquete(String tipoPaquete, Integer peso, double valorDeclarado) {
         this.tipoPaquete = tipoPaquete;
         this.peso = peso;
         this.valorDeclarado = valorDeclarado;

@@ -23,7 +23,7 @@ public class Empleado {
     @Column(name = "ciudad")
     private String ciudad;
     @Column(name = "antiguedad")
-    private Integer Antiguedad;
+    private Integer antiguedad;
     @Column(name = "rh")
     private String rh;
     @Column(name = "tipo")
@@ -40,7 +40,7 @@ public class Empleado {
         this.correoElectronico = correoElectronico;
         this.direccionResidencial = direccionResidencial;
         this.ciudad = ciudad;
-        Antiguedad = antiguedad;
+        this.antiguedad = antiguedad;
         this.rh = rh;
         this.tipoEmpleado = tipoEmpleado;
     }
@@ -102,11 +102,11 @@ public class Empleado {
     }
 
     public Integer getAntiguedad() {
-        return Antiguedad;
+        return antiguedad;
     }
 
     public void setAntiguedad(Integer antiguedad) {
-        Antiguedad = antiguedad;
+        antiguedad = antiguedad;
     }
 
     public String getRh() {

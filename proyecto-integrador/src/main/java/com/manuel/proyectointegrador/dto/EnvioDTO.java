@@ -11,9 +11,6 @@ public class EnvioDTO {
     private String numRecibe;
     private Double valorDeclaradoPaquete;
     private Integer peso;
-    private Double valorEnvio;
-    private String estadoEnvio;
-    private Integer numeroGuia;
 
     public EnvioDTO() {
     }
@@ -91,29 +88,5 @@ public class EnvioDTO {
 
     public void setPeso(Integer peso) {
         this.peso = peso;
-    }
-
-    public Double getValorEnvio() {
-        return valorEnvio;
-    }
-
-    public void setValorEnvio(Double valorEnvio) {
-        this.valorEnvio = valorEnvio;
-    }
-
-    public String getEstadoEnvio() {
-        return estadoEnvio;
-    }
-
-    public void setEstadoEnvio(String estadoEnvio) {
-        this.estadoEnvio = estadoEnvio;
-    }
-
-    public Integer getNumeroGuia() {
-        return numeroGuia;
-    }
-
-    public void setNumeroGuia(Integer numeroGuia) {
-        this.numeroGuia = numeroGuia;
     }
 }

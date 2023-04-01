@@ -8,7 +8,7 @@ import java.util.Date;
 public class Envio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private double numeroGuia;
+    private Integer numeroGuia;
     @OneToOne
     @JoinColumn(name = "cedula")
     private Cliente cliente;
@@ -23,7 +23,7 @@ public class Envio {
     @Column(name = "celular")
     private String numeroRecibe;
     @Column(name = "hora")
-    private Date horaEntrega;
+    private String horaEntrega;
     @Column(name = "estado")
     private String estadoEnvio;
     @Column(name = "valor")
@@ -35,8 +35,7 @@ public class Envio {
     public Envio() {
     }
 
-    public Envio(double numeroGuia, Cliente cliente, String ciudadOrigen, String ciudadDestino, String direccionDestino, String nombreRecibe, String numeroRecibe, Date horaEntrega, String estadoEnvio, Double valorEnvio, Paquete paquete) {
-        this.numeroGuia = numeroGuia;
+    public Envio(Cliente cliente, String ciudadOrigen, String ciudadDestino, String direccionDestino, String nombreRecibe, String numeroRecibe, String horaEntrega, String estadoEnvio, Double valorEnvio, Paquete paquete) {
         this.cliente = cliente;
         this.ciudadOrigen = ciudadOrigen;
         this.ciudadDestino = ciudadDestino;
@@ -49,11 +48,11 @@ public class Envio {
         this.paquete = paquete;
     }
 
-    public double getNumeroGuia() {
+    public Integer getNumeroGuia() {
         return numeroGuia;
     }
 
-    public void setNumeroGuia(double numeroGuia) {
+    public void setNumeroGuia(Integer numeroGuia) {
         this.numeroGuia = numeroGuia;
     }
 
@@ -105,11 +104,11 @@ public class Envio {
         this.numeroRecibe = numeroRecibe;
     }
 
-    public Date getHoraEntrega() {
+    public String getHoraEntrega() {
         return horaEntrega;
     }
 
-    public void setHoraEntrega(Date horaEntrega) {
+    public void setHoraEntrega(String horaEntrega) {
         this.horaEntrega = horaEntrega;
     }
 
@@ -135,5 +134,13 @@ public class Envio {
 
     public void setPaquete(Paquete paquete) {
         this.paquete = paquete;
+    }
+
+    @Override
+    public String toString() {
+        return "{\n" +
+                "numeroGuia=" + numeroGuia +
+                "\nestadoEnvio='" + estadoEnvio + "'\n" +
+                '}';
     }
 }

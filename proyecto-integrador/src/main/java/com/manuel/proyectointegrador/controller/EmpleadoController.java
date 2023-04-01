@@ -17,6 +17,7 @@ public class EmpleadoController {
     //crear empleado
     @PostMapping("/empleado")
     public void crearEmpleado(@RequestBody EmpleadoDTO empleado){
+        this.empleadoService.crearEmpleado(empleado);
 
     }
     //actualizar empleado
@@ -28,12 +29,13 @@ public class EmpleadoController {
     //eliminar empleado
     @DeleteMapping("/empleados/{cedula}")
     public String eliminarEmpleado(@PathVariable("cedula") int cedula){
+        this.eliminarEmpleado(cedula);
         return "Empleado eliminado";
     }
 
     //obtener empleado por cedula
     @GetMapping("/empleados/{cedula}")
     public EmpleadoDTO obtenerEmpleado(@PathVariable("cedula") int cedula){
-        return new EmpleadoDTO();
+        return this.empleadoService.getEmpleadoPorCedula(cedula);
     }
 }

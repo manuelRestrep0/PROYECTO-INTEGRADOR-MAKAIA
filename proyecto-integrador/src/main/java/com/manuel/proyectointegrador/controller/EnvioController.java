@@ -21,8 +21,7 @@ public class EnvioController {
     // crear envio
     @PostMapping("/envio")
     public String crearEnvio(@RequestBody EnvioDTO envio){
-        return "numero guia: estado envio:";
-        //retorna el numero guia y el estadoEnvio
+        return this.envioService.crearEnvio(envio);
     }
 
     // obtener envio numero guia
