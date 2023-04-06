@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EnvioService {
@@ -43,7 +44,7 @@ public class EnvioService {
                 || envioDTO.getValorDeclaradoPaquete()==null || envioDTO.getPeso()==null){
             throw new ApiRequestException("Hace falta llenar todos los campos");
         }
-        Optional<Cliente> cliente = Optional.of(this.clienteRepository.getById(envioDTO.getCedulaCliente()));
+        Optional<Cliente> cliente = this.clienteRepository.findById(envioDTO.getCedulaCliente());
         if(cliente.isPresent()){
             Paquete paquete = new Paquete(asignarTipoPaquete(envioDTO.getPeso()),envioDTO.getPeso(),envioDTO.getValorDeclaradoPaquete());
             this.paqueteRepository.save(paquete);
@@ -118,6 +119,9 @@ public class EnvioService {
         Optional<Empleado> empleado = this.empleadoRepository.findById(cedulaEmpleado);
         if(empleado.isPresent()){
             List<Envio> envios = this.envioRepository.findAll();
+            envios = envios.stream()
+                    .filter(envio -> envio.getEstadoEnvio().equals(estado))
+                    .collect(Collectors.toList());
             List<EnvioDTO> enviosDTO = new ArrayList<>();
             envios.stream()
                     .forEach(envio -> enviosDTO.add(new EnvioDTO(
