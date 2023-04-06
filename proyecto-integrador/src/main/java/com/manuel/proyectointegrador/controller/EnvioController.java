@@ -39,7 +39,7 @@ public class EnvioController {
     @GetMapping("/envio")
     public List<EnvioDTO> filtrarEnvios(@RequestParam String estadoEnvio, @RequestParam Integer cedulaEmpleado){
         //tener en cuenta las validaciones.
-        return new ArrayList<>();
+        return this.envioService.filtrar(estadoEnvio,cedulaEmpleado);
     }
 
 }
