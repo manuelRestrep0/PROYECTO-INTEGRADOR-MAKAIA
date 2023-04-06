@@ -3,6 +3,7 @@ package com.manuel.proyectointegrador.service;
 import com.manuel.proyectointegrador.dto.EnvioDTO;
 import com.manuel.proyectointegrador.exception.ApiRequestException;
 import com.manuel.proyectointegrador.model.Cliente;
+import com.manuel.proyectointegrador.model.Empleado;
 import com.manuel.proyectointegrador.model.Envio;
 import com.manuel.proyectointegrador.model.Paquete;
 import com.manuel.proyectointegrador.repository.ClienteRepository;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,6 +57,84 @@ public class EnvioService {
         } else{
             throw new ApiRequestException("El cliente con cedula "+envioDTO.getCedulaCliente()+" debe de estar registrado para poder enviar el paquete.");
         }
+    }
+    public EnvioDTO buscarEnvio(Integer guia){
+        Optional<Envio> envio = this.envioRepository.findById(guia);
+        if(envio.isPresent()){
+            EnvioDTO envioDTO = new EnvioDTO(
+                    envio.get().getCliente().getCedula()
+                    ,envio.get().getCiudadOrigen()
+                    ,envio.get().getCiudadDestino()
+                    ,envio.get().getDireccionDestino()
+                    ,envio.get().getNombreRecibe()
+                    ,envio.get().getNumeroRecibe()
+                    ,envio.get().getPaquete().getValorDeclarado()
+                    ,envio.get().getPaquete().getPeso()
+            );
+            envioDTO.setEstadoEnvio(envio.get().getEstadoEnvio());
+            envioDTO.setValorEnvio(envio.get().getValorEnvio());
+            return envioDTO;
+        }
+        throw new ApiRequestException("El numero guia no se encuentra registrado");
+    }
+
+    public String actualizarEstado(Integer numGuia, Integer cedulaEmpleado, String estado){
+        Optional<Empleado> empleado = this.empleadoRepository.findById(cedulaEmpleado);
+        if(empleado.isPresent()){
+            String tipo = empleado.get().getTipoEmpleado();
+            if(tipo.equals("REPARTIDOR") || tipo.equals("COORDINADOR")){
+                Optional<Envio> envio = this.envioRepository.findById(numGuia);
+                if(envio.isPresent()){
+                    String estadoEnvio = envio.get().getEstadoEnvio();
+                    if(estadoEnvio.equals("RECIBIDO")){
+                        if(estado.equals("EN RUTA")){
+                            envio.get().setEstadoEnvio(estado);
+                            return "{\n" +
+                                    "numeroGuia=" + numGuia +
+                                    "\nultimoEstado='" + estado + "'\n" +
+                                    '}';
+                        }
+                        throw new ApiRequestException("El cambio de estado no cumple con las validaciones");
+                    } else if(estadoEnvio.equals("EN RUTA")){
+                        if(estado.equals("ENTREGADO")){
+                            envio.get().setEstadoEnvio(estado);
+                            return "{\n" +
+                                "numeroGuia=" + numGuia +
+                                        "\nultimoEstado='" + estado + "'\n" +
+                                        '}';
+                        }
+                    }
+                    throw new ApiRequestException("El envio ya ha sido entregado");
+                }
+                throw new ApiRequestException("El numero guia no se encuentra registrado");
+            }
+            throw new ApiRequestException("Este empleado no puede realizar el cambio solicitado");
+        }
+        throw new ApiRequestException("El empleado con cedula "+cedulaEmpleado+" no existe en nuestra compania");
+    }
+
+    public List<EnvioDTO> filtrar(String estado, Integer cedulaEmpleado){
+        Optional<Empleado> empleado = this.empleadoRepository.findById(cedulaEmpleado);
+        if(empleado.isPresent()){
+            List<Envio> envios = this.envioRepository.findAll();
+            List<EnvioDTO> enviosDTO = new ArrayList<>();
+            envios.stream()
+                    .forEach(envio -> enviosDTO.add(new EnvioDTO(
+                            envio.getCliente().getCedula(),
+                            envio.getCiudadOrigen(),
+                            envio.getCiudadDestino(),
+                            envio.getDireccionDestino(),
+                            envio.getNombreRecibe(),
+                            envio.getNumeroRecibe(),
+                            envio.getPaquete().getValorDeclarado(),
+                            envio.getPaquete().getPeso(),
+                            envio.getValorEnvio(),
+                            envio.getEstadoEnvio(),
+                            envio.getNumeroGuia()
+                    )));
+            return enviosDTO;
+        }
+        throw new ApiRequestException("El empleado con cedula "+cedulaEmpleado+" no existe en nuestra compania");
     }
 
     public String asignarTipoPaquete(Integer peso){

@@ -11,6 +11,9 @@ public class EnvioDTO {
     private String numRecibe;
     private Double valorDeclaradoPaquete;
     private Integer peso;
+    private Double valorEnvio;
+    private String estadoEnvio;
+    private Integer numGuia;
 
     public EnvioDTO() {
     }
@@ -24,6 +27,20 @@ public class EnvioDTO {
         this.numRecibe = numRecibe;
         this.valorDeclaradoPaquete = valorDeclaradoPaquete;
         this.peso = peso;
+    }
+
+    public EnvioDTO(Integer cedulaCliente, String ciudadOrigen, String ciudadDestino, String direccionDestino, String nombreRecibe, String numRecibe, Double valorDeclaradoPaquete, Integer peso, Double valorEnvio, String estadoEnvio, Integer numGuia) {
+        this.cedulaCliente = cedulaCliente;
+        this.ciudadOrigen = ciudadOrigen;
+        this.ciudadDestino = ciudadDestino;
+        this.direccionDestino = direccionDestino;
+        this.nombreRecibe = nombreRecibe;
+        this.numRecibe = numRecibe;
+        this.valorDeclaradoPaquete = valorDeclaradoPaquete;
+        this.peso = peso;
+        this.valorEnvio = valorEnvio;
+        this.estadoEnvio = estadoEnvio;
+        this.numGuia = numGuia;
     }
 
     public Integer getCedulaCliente() {
@@ -80,6 +97,22 @@ public class EnvioDTO {
 
     public void setValorDeclaradoPaquete(Double valorDeclaradoPaquete) {
         this.valorDeclaradoPaquete = valorDeclaradoPaquete;
+    }
+
+    public Double getValorEnvio() {
+        return valorEnvio;
+    }
+
+    public void setValorEnvio(Double valorEnvio) {
+        this.valorEnvio = valorEnvio;
+    }
+
+    public String getEstadoEnvio() {
+        return estadoEnvio;
+    }
+
+    public void setEstadoEnvio(String estadoEnvio) {
+        this.estadoEnvio = estadoEnvio;
     }
 
     public Integer getPeso() {

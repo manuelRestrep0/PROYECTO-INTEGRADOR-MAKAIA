@@ -27,19 +27,17 @@ public class EnvioController {
     // obtener envio numero guia
     @GetMapping("/envio/{numeroGuia}")
     public EnvioDTO obtenerEnvio(@PathVariable("numeroGuia") int numeroGuia){
-        return new EnvioDTO();
+        return this.envioService.buscarEnvio(numeroGuia);
     }
 
     // actualizar estado envio
     @PatchMapping("/envio")
-    public void actualizarEstadoEnvio(@RequestParam("guia") Integer numGuia, @RequestParam("estado") String estadoEnvio, @RequestParam("empleado") Integer cedulaEmpleado){
-        //recibe numero guia, estadoEnvio, cedulaEmpleado
-        //tener en cuenta las validaciones para actualizar el paquete.
+    public String actualizarEstadoEnvio(@RequestParam("guia") Integer numGuia, @RequestParam("estado") String estadoEnvio, @RequestParam("empleado") Integer cedulaEmpleado){
+        return this.envioService.actualizarEstado(numGuia,cedulaEmpleado,estadoEnvio);
     }
 
-
     @GetMapping("/envio")
-    public List<EnvioDTO> filtrarEnvios(@RequestParam String estadoEnvio, @RequestParam int cedulaEmpleado){
+    public List<EnvioDTO> filtrarEnvios(@RequestParam String estadoEnvio, @RequestParam Integer cedulaEmpleado){
         //tener en cuenta las validaciones.
         return new ArrayList<>();
     }
