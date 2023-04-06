@@ -89,6 +89,7 @@ public class EnvioService {
                     if(estadoEnvio.equals("RECIBIDO")){
                         if(estado.equals("EN RUTA")){
                             envio.get().setEstadoEnvio(estado);
+                            this.envioRepository.save(envio.get());
                             return "{\n" +
                                     "numeroGuia=" + numGuia +
                                     "\nultimoEstado='" + estado + "'\n" +
