@@ -31,4 +31,4 @@ jobs:
       run: gradle build
       
     - name: Testing
-      run: gradle check
+      run: gradle tasks
